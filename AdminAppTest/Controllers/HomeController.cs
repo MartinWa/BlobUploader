@@ -17,7 +17,7 @@ namespace AdminAppTest.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Testing Azure Web Site with the new MVC4 Simple Membership login";
 
             return View();
         }
