@@ -24,7 +24,7 @@ namespace AdminAppTest.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Don't call us, we will call you!";
 
             return View();
         }
