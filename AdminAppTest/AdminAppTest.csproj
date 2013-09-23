@@ -191,8 +191,21 @@
     <Compile Include="Migrations\201309230857339_Initial.Designer.cs">
       <DependentUpon>201309230857339_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309231050379_AddedSimpleMembershipToEF.cs" />
+    <Compile Include="Migrations\201309231050379_AddedSimpleMembershipToEF.Designer.cs">
+      <DependentUpon>201309231050379_AddedSimpleMembershipToEF.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ExternalLogin.cs" />
+    <Compile Include="Models\LocalPasswordModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\OAuthMembership.cs" />
+    <Compile Include="Models\RegisterExternalLoginModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\UsersContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +329,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201309230857339_Initial.resx">
       <DependentUpon>201309230857339_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309231050379_AddedSimpleMembershipToEF.resx">
+      <DependentUpon>201309231050379_AddedSimpleMembershipToEF.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
