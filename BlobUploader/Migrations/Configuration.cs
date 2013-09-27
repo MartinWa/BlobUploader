@@ -1,17 +1,17 @@
-using AdminAppTest.WebSec;
+using System.Data.Entity.Migrations;
+using BlobUploader.Models;
+using BlobUploader.WebSec;
 
-namespace AdminAppTest.Migrations
+namespace BlobUploader.Migrations
 {
-    using System.Data.Entity.Migrations;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<Models.UsersContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<UsersContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Models.UsersContext context)
+        protected override void Seed(UsersContext context)
         {
             WebSecurityInitializer.Instance.EnsureInitialize();
         }

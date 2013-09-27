@@ -1,4 +1,4 @@
-﻿namespace AdminAppTest.Models
+﻿namespace BlobUploader.Models
 {
     public class ExternalLogin
     {

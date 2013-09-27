@@ -1,7 +1,7 @@
 ﻿using System;
 using WebMatrix.WebData;
 
-namespace AdminAppTest.WebSec
+namespace BlobUploader.WebSec
 {
     public class WebSecurityInitializer
     {

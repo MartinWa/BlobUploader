@@ -3,9 +3,10 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using AdminAppTest.WebSec;
+using BlobUploader.App_Start;
+using BlobUploader.WebSec;
 
-namespace AdminAppTest
+namespace BlobUploader
 {
     public class MvcApplication : HttpApplication
     {

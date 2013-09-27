@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AdminAppTest.Models
+namespace BlobUploader.Models
 {
     [Table("webpages_Roles")]
     public class Role

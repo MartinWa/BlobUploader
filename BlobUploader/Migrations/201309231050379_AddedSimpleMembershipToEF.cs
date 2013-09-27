@@ -1,7 +1,7 @@
-namespace AdminAppTest.Migrations
-{
-    using System.Data.Entity.Migrations;
+using System.Data.Entity.Migrations;
 
+namespace BlobUploader.Migrations
+{
     public partial class AddedSimpleMembershipToEF : DbMigration
     {
         public override void Up()

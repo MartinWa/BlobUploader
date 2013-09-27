@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using AdminAppTest.Models;
-
-namespace AdminAppTest
+﻿namespace BlobUploader.App_Start
 {
     public static class AuthConfig
     {

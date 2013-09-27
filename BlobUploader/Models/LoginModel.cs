@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AdminAppTest.Models
+namespace BlobUploader.Models
 {
     public class LoginModel
     {

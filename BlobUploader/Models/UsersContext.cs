@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace AdminAppTest.Models
+namespace BlobUploader.Models
 {
     public class UsersContext : DbContext
     {
