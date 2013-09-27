@@ -18,7 +18,7 @@ namespace BlobUploader.WebSec
                 _isInitialized = true;
                 try
                 {
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", true);
+                    WebSecurity.InitializeDatabaseConnection("DatabaseConnection", "UserProfile", "UserId", "UserName", true);
                 }
                 catch (Exception ex)
                 {

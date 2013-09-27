@@ -1,4 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Text;
+using System.Web.Mvc;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace BlobUploader.Controllers
 {
@@ -10,8 +15,24 @@ namespace BlobUploader.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
+            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnection"));
+            var client = storageAccount.CreateCloudBlobClient();
+            var staticUploadUrl =
+                client.GetContainerReference("public").GetBlockBlobReference("upload.html").Uri.AbsoluteUri;
 
+            var container = client.GetContainerReference("upload");
+            container.CreateIfNotExists();
+            var blob = container.GetBlockBlobReference(Guid.NewGuid().ToString());
+            var sas = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy()
+                {
+                    Permissions = SharedAccessBlobPermissions.Write,
+                    SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(30)
+                });
+            var uploadUri = blob.Uri.AbsoluteUri + sas;
+            var uriInBytes = Encoding.Default.GetBytes(uploadUri);
+            var base64Uri = Convert.ToBase64String(uriInBytes);
+            var url = staticUploadUrl + "?sas=" + base64Uri;
+            return Redirect(url);
+        }
     }
 }

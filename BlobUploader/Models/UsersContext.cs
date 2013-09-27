@@ -4,7 +4,7 @@ namespace BlobUploader.Models
 {
     public class UsersContext : DbContext
     {
-        public UsersContext() : base("DefaultConnection") { }
+        public UsersContext() : base("DatabaseConnection") { }
         public DbSet<UserProfile> UserProfiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
