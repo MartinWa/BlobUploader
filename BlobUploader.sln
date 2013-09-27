@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blobstorageFiles", "blobsto
 	ProjectSection(SolutionItems) = preProject
 		blobstorageFiles\jquery-1.10.2.js = blobstorageFiles\jquery-1.10.2.js
 		blobstorageFiles\modern.css = blobstorageFiles\modern.css
+		blobstorageFiles\purl.js = blobstorageFiles\purl.js
 		blobstorageFiles\upload.html = blobstorageFiles\upload.html
 		blobstorageFiles\upload.js = blobstorageFiles\upload.js
 	EndProjectSection

@@ -17,6 +17,9 @@ $(document).ready(function () {
     } else {
         alert('The File APIs are not fully supported in this browser.');
     }
+    var sasBase64 = $.url().param('sas');
+    var sas = atob(sasBase64);
+    console.log(sas);
 });
 
 var reader = new FileReader();
