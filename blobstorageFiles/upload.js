@@ -7,7 +7,7 @@ var blockIds = new Array();
 var blockIdPrefix = "block-";
 var submitUri = null;
 var bytesUploaded = 0;
- 
+
 $(document).ready(function () {
     $("#output").hide();
     $("#file").bind('change', handleFileSelect);
@@ -18,13 +18,12 @@ $(document).ready(function () {
         alert('The File APIs are not fully supported in this browser.');
     }
     var sasBase64 = $.url().param('sas');
-    var sas = atob(sasBase64);
-    console.log(sas);
+    submitUri = atob(sasBase64);
 });
 
 var reader = new FileReader();
 
-reader.onloadstart = function() {
+reader.onloadstart = function () {
     console.log("started read");
 };
 
@@ -37,26 +36,24 @@ reader.onloadend = function (evt) {
             type: "PUT",
             data: requestData,
             processData: false,
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
-                xhr.setRequestHeader('Content-Length', requestData.length);
             },
             success: function (data, status) {
-                console.log(data);
                 console.log(status);
                 bytesUploaded += requestData.length;
                 var percentComplete = ((parseFloat(bytesUploaded) / parseFloat(selectedFile.size)) * 100).toFixed(2);
                 $("#fileUploadProgress").text(percentComplete + " %");
                 uploadFileInBlocks();
             },
-            error: function(xhr, desc, err) {
+            error: function (xhr, desc, err) {
                 console.log(desc);
                 console.log(err);
             }
         });
     }
 };
- 
+
 //Read the file and find out how many blocks we would need to split it.
 function handleFileSelect(e) {
     maxBlockSize = 256 * 1024;
@@ -80,9 +77,6 @@ function handleFileSelect(e) {
         numberOfBlocks = parseInt(fileSize / maxBlockSize, 10) + 1;
     }
     console.log("total blocks = " + numberOfBlocks);
-    var baseUrl = $("#sasUrl").val();
-    var indexOfQueryStart = baseUrl.indexOf("?");
-    submitUri = baseUrl.substring(0, indexOfQueryStart) + '/' + selectedFile.name + baseUrl.substring(indexOfQueryStart);
     console.log(submitUri);
 }
 
@@ -103,7 +97,7 @@ function uploadFileInBlocks() {
         commitBlockList();
     }
 }
- 
+
 function commitBlockList() {
     var uri = submitUri + '&comp=blocklist';
     console.log(uri);
@@ -119,10 +113,8 @@ function commitBlockList() {
         data: requestBody,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('x-ms-blob-content-type', selectedFile.type);
-            xhr.setRequestHeader('Content-Length', requestBody.length);
         },
         success: function (data, status) {
-            console.log(data);
             console.log(status);
         },
         error: function (xhr, desc, err) {
