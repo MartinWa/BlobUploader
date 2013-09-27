@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AdminAppTest.Controllers
+namespace BlobUploader.Controllers
 {
     [Authorize(Roles = "Uploader")]
     public class UploadController : Controller
