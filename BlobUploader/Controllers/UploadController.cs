@@ -19,12 +19,11 @@ namespace BlobUploader.Controllers
             var client = storageAccount.CreateCloudBlobClient();
             var staticUploadUrl =
                 client.GetContainerReference("public").GetBlockBlobReference("upload.html").Uri.AbsoluteUri;
-
             var container = client.GetContainerReference("upload");
             container.CreateIfNotExists();
             var blob = container.GetBlockBlobReference(Guid.NewGuid().ToString());
-            var sas = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy()
-                {
+            var sas = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
                     Permissions = SharedAccessBlobPermissions.Write,
                     SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(30)
                 });
