@@ -120,7 +120,7 @@ function commitBlockList(blockIds, contentType) {
         function (xhr) {
             xhr.setRequestHeader('x-ms-blob-content-type', contentType);
         },
-        funct  ion (data, status) {
+        function (data, status) {
             console.log(status);
             $("#fileUploadProgress").text = "File upload complete";
         });
