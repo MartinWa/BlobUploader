@@ -19,7 +19,7 @@ namespace BlobUploader.Controllers
         {
             context.HttpContext.Response.Write("<script>" + 
                 "window.open('" + _url +"','_blank', 'width=" + _width + ",height=" + _height + "');" + 
-                "document.location.href='/';" +
+                "setInterval(function(){history.back()}, 3000);" +
                 "</script>");
         }
     }
