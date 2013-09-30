@@ -17,8 +17,10 @@ namespace BlobUploader.Controllers
 
         public override void ExecuteResult(ControllerContext context)
         {
-            context.HttpContext.Response.Write("<script>window.open('" + _url +
-                                               "','_blank', 'width=" + _width + ",height=" + _height + "');history.back()</script>");
+            context.HttpContext.Response.Write("<script>" + 
+                "window.open('" + _url +"','_blank', 'width=" + _width + ",height=" + _height + "');" + 
+                "document.location.href='/';" +
+                "</script>");
         }
     }
 }
