@@ -5,7 +5,7 @@
     <script src="jquery-1.10.2.js"></script>
     <script src="purl.js"></script>
     <script src="upload.js"></script>
-    <link rel="stylesheet" href="modern.css"/>
+    <link rel="stylesheet" href="modern.css" />
 
 </head>
 <body>
@@ -14,27 +14,28 @@
             <h1>File Uploader</h1>
             <p>
                 <strong>File To Upload</strong>: 
-                <br/>
+                <br />
                 <span class="input-control text">
-                    <input type="file" id="file" name="file" style="width: 50%"/>
+                    <input type="file" id="file" name="file" style="width: 50%" />
                 </span>
             </p>
             <div id="output">
-                 
                 <strong>File Properties:</strong>
-                <br/>
+                <br />
                 <p>
                     Name: <span id="fileName"></span>
                 </p>
                 <p>
-                    File Size: <span id="fileSize"></span> bytes.
+                    File Size: <span id="fileSize"></span>bytes.
                 </p>
                 <p>
                     File Type: <span id="fileType"></span>
                 </p>
                 <p>
-                    <input type="button" value="Upload File" id="uploadFile"/>
+                    <input type="button" value="Upload File" id="uploadFile" />
                 </p>
+            </div>
+            <div id="progress">
                 <p>
                     <strong>Progress</strong>: <span id="fileUploadProgress">0.00 %</span>
                 </p>

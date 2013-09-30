@@ -3,8 +3,8 @@ var BLOCK_ID_PREFIX = "block-";
 var RETRY_TIMEOUT_SECONDS = 5;
 var NUMBER_OF_RETRIES = 3;
 
-var numberOfBlocks = 0;
 var selectedFile = null;
+
 var currentFilePointer = 0;
 var blockSize = 0;
 var totalBytesRemaining = 0;
@@ -15,8 +15,9 @@ var reader = new FileReader();
 
 $(document).ready(function () {
     $("#output").hide();
+    $("#progress").hide();
     $("#file").bind('change', handleFileSelect);
-    $("#uploadFile").bind('click', uploadFileInBlocks);
+    $("#uploadFile").bind('click', startUpload);
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
     } else {
@@ -56,13 +57,17 @@ function sendAjax(url, dataToSend, beforeSendFunction, successFuction) {
         retryLimit: NUMBER_OF_RETRIES,
         success: successFuction,
         error: function (xhr, desc, err) {
-            this.tryCount++;
-            if (this.tryCount <= this.retryLimit) {
-                console.log("Retrying transmission");
-                setTimeout($.ajax(this), RETRY_TIMEOUT_SECONDS * 1000);
-                return;
+            if (xhr.status == 403) {
+                $("#fileUploadProgress").text("Access denied, the assigned upload time has been exeeded");
+            } else {
+                this.tryCount++;
+                if (this.tryCount <= this.retryLimit) {
+                    console.log("Retrying transmission");
+                    setTimeout($.ajax(this), RETRY_TIMEOUT_SECONDS * 1000);
+                    return;
+                }
+                $("#fileUploadProgress").text("Error occured: " + desc);
             }
-            $("#fileUploadProgress").text = "Error occured: " + desc;
             console.log(desc);
             console.log(err);
         }
@@ -79,12 +84,17 @@ function handleFileSelect(e) {
     currentFilePointer = 0;
     blockSize = Math.min(fileSize, MAX_BLOCK_SIZE);
     totalBytesRemaining = fileSize;
-    numberOfBlocks = Math.ceil(fileSize / blockSize);
-    console.log("total blocks = " + numberOfBlocks);
+    console.log("total blocks = " + Math.ceil(fileSize / blockSize));
     console.log(submitUri);
 }
-
+function startUpload() {
+    $("#uploadFile").prop('disabled', true);
+    $("#file").prop('disabled', true);
+    $("#progress").show();
+    uploadFileInBlocks();
+}
 function uploadFileInBlocks() {
+
     if (totalBytesRemaining > 0) {
         console.log("current file pointer = " + currentFilePointer + " bytes read = " + blockSize);
         var slice = selectedFile.slice(currentFilePointer, currentFilePointer + blockSize);
@@ -122,6 +132,6 @@ function commitBlockList(blockIds, contentType) {
         },
         function (data, status) {
             console.log(status);
-            $("#fileUploadProgress").text = "File upload complete";
+            $("#fileUploadProgress").text("Done!");
         });
 }
