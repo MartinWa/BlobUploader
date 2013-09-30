@@ -1,16 +1,18 @@
-(function () {
-    var MAX_BLOCK_SIZE = 256 * 1024, //Each file will be split in 256 KB.
+var MAX_BLOCK_SIZE = 256 * 1024, //Each file will be split in 256 KB.
     BLOCK_ID_PREFIX = "block-",
     RETRY_TIMEOUT_SECONDS = 5,
-    NUMBER_OF_RETRIES = 3,
-    selectedFile = null,
-    currentFilePointer = 0,
-    blockSize = 0,
-    totalBytesRemaining = 0,
-    blockIds = [],
-    submitUri = null,
-    bytesUploaded = 0,
-    reader = null;
+    NUMBER_OF_RETRIES = 3;
+
+(function () {
+
+    var selectedFile = null,
+        currentFilePointer = 0,
+        blockSize = 0,
+        totalBytesRemaining = 0,
+        blockIds = [],
+        submitUri = null,
+        bytesUploaded = 0,
+        reader = null;
 
     function sendAjax(url, dataToSend, beforeSendFunction, successFuction) {
         $.ajax({

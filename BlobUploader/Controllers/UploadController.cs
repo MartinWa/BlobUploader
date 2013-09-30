@@ -10,10 +10,7 @@ namespace BlobUploader.Controllers
     [Authorize(Roles = "Uploader")]
     public class UploadController : Controller
     {
-        //
-        // GET: /Upload/
-
-        public ActionResult Index()
+        public PopupActionResult Index()
         {
             var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnection"));
             var client = storageAccount.CreateCloudBlobClient();
@@ -31,7 +28,7 @@ namespace BlobUploader.Controllers
             var uriInBytes = Encoding.Default.GetBytes(uploadUri);
             var base64Uri = Convert.ToBase64String(uriInBytes);
             var url = staticUploadUrl + "?sas=" + base64Uri;
-            return Redirect(url);
+            return new PopupActionResult(url);
         }
     }
 }
