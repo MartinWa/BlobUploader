@@ -2,32 +2,17 @@ var MAX_BLOCK_SIZE = 256 * 1024;//Each file will be split in 256 KB.
 var BLOCK_ID_PREFIX = "block-";
 var RETRY_TIMEOUT_SECONDS = 5;
 var NUMBER_OF_RETRIES = 3;
-
 var selectedFile = null;
-
 var currentFilePointer = 0;
 var blockSize = 0;
 var totalBytesRemaining = 0;
 var blockIds = new Array();
 var submitUri = null;
 var bytesUploaded = 0;
-var reader = new FileReader();
+var reader = null;
 
-$(document).ready(function () {
-    $("#output").hide();
-    $("#progress").hide();
-    $("#file").bind('change', handleFileSelect);
-    $("#uploadFile").bind('click', startUpload);
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-    } else {
-        alert('The File APIs are not fully supported in this browser.');
-    }
-    var sasBase64 = $.url().param('sas');
-    submitUri = atob(sasBase64);
-});
 
-reader.onloadend = function (evt) {
+function readerOnLoadEnd(evt) {
     if (evt.target.readyState == FileReader.DONE) { // DONE == 2
         var uri = submitUri + '&comp=block&blockid=' + blockIds[blockIds.length - 1];
         var requestData = new Uint8Array(evt.target.result);
@@ -135,3 +120,20 @@ function commitBlockList(blockIds, contentType) {
             $("#fileUploadProgress").text("Done!");
         });
 }
+
+$(document).ready(function () {
+    $("#output").hide();
+    $("#progress").hide();
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        reader = new FileReader();
+        reader.onloadend = readerOnLoadEnd;
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+        $("#file").prop('disabled', true);
+        return;
+    }
+    $("#file").bind('change', handleFileSelect);
+    $("#uploadFile").bind('click', startUpload);
+    var sasBase64 = $.url().param('sas');
+    submitUri = atob(sasBase64);
+});
