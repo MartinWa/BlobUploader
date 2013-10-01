@@ -10,7 +10,7 @@ namespace BlobUploader.Controllers
     [Authorize(Roles = "Uploader")]
     public class UploadController : Controller
     {
-        public PopupActionResult Index()
+        public ActionResult Index()
         {
             var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnection"));
             var client = storageAccount.CreateCloudBlobClient();
@@ -21,14 +21,16 @@ namespace BlobUploader.Controllers
             var blob = container.GetBlockBlobReference(Guid.NewGuid().ToString());
             var sas = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
-                    Permissions = SharedAccessBlobPermissions.Write,
-                    SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(30)
-                });
+                Permissions = SharedAccessBlobPermissions.Write,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(30)
+            });
             var uploadUri = blob.Uri.AbsoluteUri + sas;
             var uriInBytes = Encoding.Default.GetBytes(uploadUri);
             var base64Uri = Convert.ToBase64String(uriInBytes);
-            var url = staticUploadUrl + "?sas=" + base64Uri;
-            return new PopupActionResult(url);
+            ViewBag.Url = staticUploadUrl + "?sas=" + base64Uri;
+            ViewBag.Width = 400;
+            ViewBag.Height = 450;
+            return View();
         }
     }
 }

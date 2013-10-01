@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Loading upload page";
+}
+
+<h2>Index</h2>
+<script>
+    loadWindow = window.open('@ViewBag.Url','_blank', 'width=@ViewBag.Width,height=@ViewBag.Height');
+    setInterval(function() {
+        if (!loadWindow || loadWindow.closed || typeof loadWindow.closed == 'undefined') {
+            window.location = '@ViewBag.Url';
+        } else {
+            {
+                window.location = '/';
+            }
+        }
+    }, 3000);
+</script>
