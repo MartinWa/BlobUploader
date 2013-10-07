@@ -101,12 +101,12 @@ var MAX_BLOCK_SIZE = 256 * 1024, //Each file will be split in 256 KB.
         return ("000000" + number).substr(-6);
     }
 
-    function commitBlockList(blockIds, contentType) {
+    function commitBlockList(blockIdList, contentType) {
         var uri = submitUri + '&comp=blocklist';
         console.log(uri);
         var requestBody = '<?xml version="1.0" encoding="utf-8"?><BlockList>';
-        for (var i = 0; i < blockIds.length; i++) {
-            requestBody += '<Latest>' + blockIds[i] + '</Latest>';
+        for (var i = 0; i < blockIdList.length; i++) {
+            requestBody += '<Latest>' + blockIdList[i] + '</Latest>';
         }
         requestBody += '</BlockList>';
         console.log(requestBody);
