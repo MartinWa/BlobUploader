@@ -27,8 +27,8 @@ namespace BlobUploader.Controllers
             var uploadUri = blob.Uri.AbsoluteUri + sas;
             var uriInBytes = Encoding.Default.GetBytes(uploadUri);
             var base64Uri = Convert.ToBase64String(uriInBytes);
-            var url = staticUploadUrl + "?sas=" + base64Uri;
-            return Redirect(url);
+            ViewBag.Url = staticUploadUrl + "?sas=" + base64Uri;
+            return View();
         }
     }
 }

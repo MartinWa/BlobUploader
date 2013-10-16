@@ -762,3 +762,9 @@ tr.pager td {
             margin: 0;
         }
 }
+
+#fileUploader {
+    border: none;
+    width: 700px;
+    height: 400px;
+}
